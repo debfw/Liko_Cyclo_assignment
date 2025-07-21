@@ -1,5 +1,13 @@
 import React from "react";
-import { Paper, Title, Stack, Switch, Slider, Group, Text } from "@mantine/core";
+import {
+  Paper,
+  Title,
+  Stack,
+  Switch,
+  Slider,
+  Group,
+  Text,
+} from "@mantine/core";
 import { CONTROL_PANEL_WIDTH } from "./constants";
 
 interface ControlPanelProps {
@@ -13,7 +21,7 @@ interface ControlPanelProps {
   featureCount: number;
 }
 
-export const ControlPanel: React.FC<ControlPanelProps> = ({
+export const ControlPanel = ({
   showBuildings,
   setShowBuildings,
   showHighBuildings,
@@ -22,7 +30,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
   setOpacity,
   isLoading,
   featureCount,
-}) => {
+}: ControlPanelProps) => {
   return (
     <Paper
       shadow="xl"
@@ -42,43 +50,47 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         <Title order={2} size="h4" style={{ color: "#fff" }}>
           Layer Controls
         </Title>
-        
+
         <Paper radius="md" p="md" style={{ background: "#23272A" }}>
           <Stack gap="xs">
             <Title order={3} size="h5" style={{ color: "#fff" }}>
               WFS Buildings
             </Title>
-            
+
             {featureCount > 0 && (
               <Text size="xs" c="dimmed">
                 Buildings loaded: {featureCount.toLocaleString()}
               </Text>
             )}
-            
+
             <Switch
               label={<Text c="#fff">Show Buildings</Text>}
               checked={showBuildings}
-              onChange={(event) => setShowBuildings(event.currentTarget.checked)}
+              onChange={(event) =>
+                setShowBuildings(event.currentTarget.checked)
+              }
               color="blue"
               size="md"
               mt="md"
             />
-            
+
             <Switch
               label={<Text c="#fff">High buildings only (&gt;10 floors)</Text>}
               checked={showHighBuildings}
-              onChange={(event) => setShowHighBuildings(event.currentTarget.checked)}
+              onChange={(event) =>
+                setShowHighBuildings(event.currentTarget.checked)
+              }
               color="red"
               size="md"
               disabled={!showBuildings}
             />
-            
+
             {isLoading && showBuildings && (
               <Text size="xs" c="dimmed" style={{ marginTop: -8 }}>
                 Loading building data...
               </Text>
             )}
-            
+
             <Group justify="space-between" mt="md" mb={-8}>
               <Text size="sm" c="#fff">
                 Transparency
@@ -87,7 +99,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                 {Math.round(opacity * 100)}%
               </Text>
             </Group>
-            
+
             <Slider
               min={0}
               max={1}
@@ -108,7 +120,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             />
           </Stack>
         </Paper>
-        
+
         <Text size="xs" c="dimmed">
           Blue borders: All buildings
           <br />

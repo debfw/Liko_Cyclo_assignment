@@ -24,7 +24,7 @@ proj4.defs(RD_PROJECTION, RD_PROJECTION_DEF);
 register(proj4);
 
 export function useMapInitialization(
-  mapRef: React.RefObject<HTMLDivElement | null>
+  mapContainerRef: React.RefObject<HTMLDivElement | null>
 ) {
   const [map, setMap] = useState<Map | null>(null);
   const layerRefs = useRef<{
@@ -36,7 +36,7 @@ export function useMapInitialization(
   });
 
   useEffect(() => {
-    if (!mapRef.current) return;
+    if (!mapContainerRef.current) return;
 
     const osmLayer = new TileLayer({
       source: new OSM(),
@@ -51,7 +51,7 @@ export function useMapInitialization(
     });
 
     const newMap = new Map({
-      target: mapRef.current,
+      target: mapContainerRef.current,
       layers: [osmLayer],
       view: new View({
         projection: RD_PROJECTION,
@@ -68,7 +68,7 @@ export function useMapInitialization(
     return () => {
       newMap.setTarget(undefined);
     };
-  }, [mapRef]);
+  }, [mapContainerRef]);
 
   return { map, layerRefs };
 }

@@ -109,6 +109,3 @@ export function createWfsLoader(options: {
     options.source.set("abortController", controller);
   };
 }
-
-// Import this to fix the missing DEFAULT_ZOOM error
-import { DEFAULT_ZOOM } from "./constants";

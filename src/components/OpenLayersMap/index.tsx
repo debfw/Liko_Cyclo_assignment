@@ -16,9 +16,9 @@ import { createWfsLoader } from "./utils";
 import { DEFAULT_OPACITY, LAYER_STYLES } from "./constants";
 import type { OpenLayersMapProps } from "./types";
 
-const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
-  const mapRef = useRef<HTMLDivElement | null>(null);
-  const { map, layerRefs } = useMapInitialization(mapRef);
+const OpenLayersMap = ({ height = "100vh" }: OpenLayersMapProps) => {
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const { map, layerRefs } = useMapInitialization(mapContainerRef);
 
   // UI State
   const [showBuildings, setShowBuildings] = useState(true);
@@ -50,9 +50,7 @@ const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
 
     const allBuildingsLayer = new VectorLayer({
       source: allBuildingsSource,
-      style: new Style({
-        stroke: new Stroke(LAYER_STYLES.allBuildings),
-      }),
+      style: new Style({ stroke: new Stroke(LAYER_STYLES.allBuildings) }),
       opacity: opacity,
       visible: showBuildings && !showHighBuildings,
     });
@@ -72,9 +70,7 @@ const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
 
     const highBuildingsLayer = new VectorLayer({
       source: highBuildingsSource,
-      style: new Style({
-        stroke: new Stroke(LAYER_STYLES.highBuildings),
-      }),
+      style: new Style({ stroke: new Stroke(LAYER_STYLES.highBuildings) }),
       opacity: opacity,
       visible: showBuildings && showHighBuildings,
     });
@@ -109,7 +105,6 @@ const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
         showBuildings && showHighBuildings
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [opacity, showBuildings, showHighBuildings]);
 
   return (
@@ -134,7 +129,7 @@ const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
           className="flex-1 min-w-0 rounded-lg overflow-hidden border border-gray-200"
           style={{ height: "100%", position: "relative" }}
         >
-          <div ref={mapRef} className="w-full h-full" />
+          <div ref={mapContainerRef} className="w-full h-full" />
         </div>
 
         <style jsx global>{`
