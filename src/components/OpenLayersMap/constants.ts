@@ -1,6 +1,7 @@
 // Projection constants
 export const RD_PROJECTION = "EPSG:28992";
-export const RD_PROJECTION_DEF = "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs";
+export const RD_PROJECTION_DEF =
+  "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs";
 
 // Map view constants
 export const AMSTERDAM_CENTER = [155000, 463000];
@@ -20,7 +21,7 @@ export const FEATURE_COUNTS = {
   LOW: 500,
   MEDIUM: 2000,
   HIGH: 5000,
-  MAX: 10000,
+  MAX: 20000,
 } as const;
 
 export const MAX_EXTENT_AREA = 25000000;

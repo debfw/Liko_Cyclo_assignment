@@ -17,9 +17,9 @@ import { DEFAULT_OPACITY, LAYER_STYLES } from "./constants";
 import type { OpenLayersMapProps } from "./types";
 
 const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
-  const mapRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement | null>(null);
   const { map, layerRefs } = useMapInitialization(mapRef);
-  
+
   // UI State
   const [showBuildings, setShowBuildings] = useState(true);
   const [showHighBuildings, setShowHighBuildings] = useState(false);
@@ -38,20 +38,11 @@ const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
 
     // Create all buildings layer (blue)
     const allBuildingsSource = new VectorSource<Feature<Geometry>>({
-      loader: createWfsLoader({
-        source: null as any, // Will be set below
-        mapZoomGetter: getMapZoom,
-        setIsLoading,
-        setFeatureCount,
-      }),
       strategy: bbox,
       format: new GeoJSON(),
     });
-    
-    // Set source reference for loader
     const allBuildingsLoader = createWfsLoader({
       source: allBuildingsSource,
-      mapZoomGetter: getMapZoom,
       setIsLoading,
       setFeatureCount,
     });
@@ -71,10 +62,9 @@ const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
       strategy: bbox,
       format: new GeoJSON(),
     });
-    
+
     const highBuildingsLoader = createWfsLoader({
       source: highBuildingsSource,
-      mapZoomGetter: getMapZoom,
       setIsLoading,
       cqlFilter: "hoogsteBouwlaag > 10",
     });
@@ -102,18 +92,24 @@ const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
       map.removeLayer(allBuildingsLayer);
       map.removeLayer(highBuildingsLayer);
     };
-  }, [map, getMapZoom]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, getMapZoom, setIsLoading, setFeatureCount]);
 
   // Update layer visibility and opacity
   useEffect(() => {
     if (layerRefs.current.allBuildings) {
       layerRefs.current.allBuildings.setOpacity(opacity);
-      layerRefs.current.allBuildings.setVisible(showBuildings && !showHighBuildings);
+      layerRefs.current.allBuildings.setVisible(
+        showBuildings && !showHighBuildings
+      );
     }
     if (layerRefs.current.highBuildings) {
       layerRefs.current.highBuildings.setOpacity(opacity);
-      layerRefs.current.highBuildings.setVisible(showBuildings && showHighBuildings);
+      layerRefs.current.highBuildings.setVisible(
+        showBuildings && showHighBuildings
+      );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [opacity, showBuildings, showHighBuildings]);
 
   return (
@@ -132,7 +128,7 @@ const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
           isLoading={isLoading}
           featureCount={featureCount}
         />
-        
+
         {/* Map Area */}
         <div
           className="flex-1 min-w-0 rounded-lg overflow-hidden border border-gray-200"
@@ -140,7 +136,7 @@ const OpenLayersMap: React.FC<OpenLayersMapProps> = ({ height = "100vh" }) => {
         >
           <div ref={mapRef} className="w-full h-full" />
         </div>
-        
+
         <style jsx global>{`
           .custom-mouse-position {
             position: absolute;

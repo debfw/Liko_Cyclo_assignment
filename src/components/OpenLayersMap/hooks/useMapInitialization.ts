@@ -3,6 +3,7 @@ import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
 import OSM from "ol/source/OSM";
+import VectorLayer from "ol/layer/Vector";
 import { defaults as defaultControls } from "ol/control";
 import MousePosition from "ol/control/MousePosition";
 import { createStringXY } from "ol/coordinate";
@@ -19,13 +20,16 @@ import {
 
 // Register RD projection once
 proj4.defs(RD_PROJECTION, RD_PROJECTION_DEF);
-register(proj4 as any);
+// @ts-expect-error - proj4 type mismatch with ol/proj/proj4
+register(proj4);
 
-export function useMapInitialization(mapRef: React.RefObject<HTMLDivElement>) {
+export function useMapInitialization(
+  mapRef: React.RefObject<HTMLDivElement | null>
+) {
   const [map, setMap] = useState<Map | null>(null);
   const layerRefs = useRef<{
-    allBuildings: any | null;
-    highBuildings: any | null;
+    allBuildings: VectorLayer | null;
+    highBuildings: VectorLayer | null;
   }>({
     allBuildings: null,
     highBuildings: null,
