@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# World Shipping Network Visualization
 
-## Getting Started
+A modern, interactive visualization of global shipping connections between major cities, built with Next.js, GoJS, Mantine UI, and Zustand.
 
-First, run the development server:
+## Features
+
+- **Interactive World Map**: Visualizes shipping routes between major cities, with dynamic node placement and scaling.
+- **Diagram Controls**: Enable/disable node dragging, create or relink shipping routes, all with confirmation prompts and custom GoJS tool logic.
+- **Dynamic Node Sizing**: Node size reflects city population, adjustable in real time.
+- **Shipping Methods**: Visual distinction and filtering for truck, air, and ship routes.
+- **Search & Filter**: Fast, in-diagram search and filtering by city, country, or shipping method.
+- **Context Menus**: Right-click for quick actions on nodes/links.
+- **Zoom & View Controls**: Zoom-to-fit, reset, and real-time link opacity/thickness adjustments.
+- **Auto-save**: All diagram changes are persisted with debounced, visual save-state feedback.
+- **Dark Theme**: Custom Mantine theme for a modern, accessible UI.
+- **Performance Optimized**: Memoized calculations, lazy data loading, and selective rendering for large datasets.
+
+## Technical Highlights
+
+- **Next.js 15**: App directory, SSR/CSR hybrid, MantineProvider for theming.
+- **GoJS**: Custom diagram setup, tool management, and event handling for interactive diagrams.
+- **Zustand**: Modular state stores for diagram, filters, UI controls, context menus, and save state.
+- **Custom Hooks**: Encapsulate all business logic for diagram interactions, filtering, and shipping route management.
+- **TypeScript**: Strict typing for all code, including GoJS data models and UI state.
+- **Extensible & Modular**: Easily add new features by extending hooks and store modules.
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd Liko_Assignment
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/         # Next.js app directory (layout, entrypoint)
+├── components/  # React components (diagram, controls, UI)
+├── stores/      # Zustand state management modules
+├── hooks/       # Custom hooks for diagram logic and state
+├── types/       # TypeScript types and GoJS data models
+├── utils/       # Utility functions (coordinates, regions, shipping)
+└── theme/       # Mantine theme configuration
+```
 
-## Learn More
+## For Interviewers
 
-To learn more about Next.js, take a look at the following resources:
+- **Hooks-first, modular architecture**: All business logic is encapsulated in custom hooks and Zustand stores.
+- **Modern UI/UX**: Accessible dark theme, responsive controls, and real-time feedback for all user actions.
+- **Performance**: Optimized for large datasets with memoization and lazy loading.
+- **Tested**: Key components covered by unit tests (`src/components/__tests__`).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+_All stylings, node calculations, and tests were done by Claude—otherwise, I'd still be struggling to center a div (just kidding, don't worry!)_
