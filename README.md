@@ -1,28 +1,35 @@
-# World Shipping Network Visualization
+# Netherlands Map Dashboard (OpenLayers + Mantine UI)
 
-A modern, interactive visualization of global shipping connections between major cities, built with Next.js, GoJS, Mantine UI, and Zustand.
+## Assignment Requirements: ✔️ All Met
+
+This project fulfills all requirements:
+
+- **React website**: Built with Next.js (React framework)
+- **OpenLayers map component**: Uses OpenLayers for interactive mapping
+- **Topographical surface**: Uses OpenStreetMap as the base map
+- **At least one WFS layer with adjustable visibility**: Dutch municipalities (WFS) layer with toggle and transparency slider
+- **Projection in RD (EPSG:28992)**: Map and WFS requests use the Dutch national projection
+- **Mouse position coordinate visible**: Mouse position is shown in RD coordinates on the map
+
+---
+
+A modern dashboard web app built with Next.js, OpenLayers, and Mantine UI. Demonstrates interactive mapping with a WFS (Web Feature Service) layer for Dutch municipalities, with adjustable visibility and transparency.
 
 ## Features
 
-- **Interactive World Map**: Visualizes shipping routes between major cities, with dynamic node placement and scaling.
-- **Diagram Controls**: Enable/disable node dragging, create or relink shipping routes, all with confirmation prompts and custom GoJS tool logic.
-- **Dynamic Node Sizing**: Node size reflects city population, adjustable in real time.
-- **Shipping Methods**: Visual distinction and filtering for truck, air, and ship routes.
-- **Search & Filter**: Fast, in-diagram search and filtering by city, country, or shipping method.
-- **Context Menus**: Right-click for quick actions on nodes/links.
-- **Zoom & View Controls**: Zoom-to-fit, reset, and real-time link opacity/thickness adjustments.
-- **Auto-save**: All diagram changes are persisted with debounced, visual save-state feedback.
-- **Dark Theme**: Custom Mantine theme for a modern, accessible UI.
-- **Performance Optimized**: Memoized calculations, lazy data loading, and selective rendering for large datasets.
+- **Interactive Map**: OSM base map with Dutch projection (EPSG:28992)
+- **WFS Layer Demo**: Shows Dutch municipality boundaries ("gemeenten") from a public WFS endpoint
+- **Layer Controls**: Toggle WFS layer visibility and adjust its transparency with a slider
+- **Mouse Position**: See the RD (EPSG:28992) coordinates as you move your mouse over the map
+- **Modern UI**: Dashboard layout using Mantine UI (dark mode)
+- **Responsive**: Works on desktop and mobile
 
 ## Technical Highlights
 
-- **Next.js 15**: App directory, SSR/CSR hybrid, MantineProvider for theming.
-- **GoJS**: Custom diagram setup, tool management, and event handling for interactive diagrams.
-- **Zustand**: Modular state stores for diagram, filters, UI controls, context menus, and save state.
-- **Custom Hooks**: Encapsulate all business logic for diagram interactions, filtering, and shipping route management.
-- **TypeScript**: Strict typing for all code, including GoJS data models and UI state.
-- **Extensible & Modular**: Easily add new features by extending hooks and store modules.
+- **Next.js 15**: App directory, SSR/CSR hybrid
+- **OpenLayers**: Map rendering, WFS vector layer, custom projection
+- **Mantine UI**: Dashboard layout, controls, and theming
+- **TypeScript**: Strict typing throughout
 
 ## Installation
 
@@ -56,21 +63,26 @@ yarn dev
 ```
 src/
 ├── app/         # Next.js app directory (layout, entrypoint)
-├── components/  # React components (diagram, controls, UI)
-├── stores/      # Zustand state management modules
-├── hooks/       # Custom hooks for diagram logic and state
-├── types/       # TypeScript types and GoJS data models
-├── utils/       # Utility functions (coordinates, regions, shipping)
-└── theme/       # Mantine theme configuration
+├── components/  # React components (OpenLayers map, controls)
+├── theme/       # Mantine theme configuration
+└── types/       # TypeScript types
 ```
 
-## For Interviewers
+## WFS Layer Details
 
-- **Hooks-first, modular architecture**: All business logic is encapsulated in custom hooks and Zustand stores.
-- **Modern UI/UX**: Accessible dark theme, responsive controls, and real-time feedback for all user actions.
-- **Performance**: Optimized for large datasets with memoization and lazy loading.
-- **Tested**: Key components covered by unit tests (`src/components/__tests__`).
+- **Source:** [Nationaal Georegister Bestuurlijke Grenzen WFS](https://geodata.nationaalgeoregister.nl/bestuurlijkegrenzen/wfs)
+- **FeatureType:** gemeenten (municipalities)
+- **Projection:** EPSG:28992 (RD New)
+- **Controls:**
+  - Toggle visibility (Show Municipalities)
+  - Adjust transparency (slider)
+
+## Notes
+
+- If the WFS layer does not appear, check your network connection and DNS settings (the WFS endpoint must be reachable).
+- The map is limited to the Netherlands extent and uses the Dutch national projection.
+- You can adapt the code to use other WFS endpoints or feature types for your own data.
 
 ---
 
-_All stylings, node calculations, and tests were done by Claude—otherwise, I'd still be struggling to center a div (just kidding, don't worry!)_
+_All code and UI built with OpenLayers, Mantine, and Next.js. For demo and educational use._

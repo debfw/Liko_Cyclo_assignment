@@ -5,9 +5,9 @@ import "./globals.css";
 import { appTheme } from "../theme";
 
 export const metadata: Metadata = {
-  title: "World Shipping Network Visualization",
+  title: "Netherlands Map Dashboard (OpenLayers + WFS)",
   description:
-    "Interactive visualization of global shipping ports and cities using GoJS",
+    "Interactive dashboard with OpenLayers, Mantine UI, and a WFS demo layer for Dutch municipalities.",
 };
 
 export default function RootLayout({
