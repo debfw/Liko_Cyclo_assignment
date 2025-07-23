@@ -85,6 +85,11 @@ const OpenLayersMap = ({ height = "100vh" }: OpenLayersMapProps) => {
 
     // Cleanup
     return () => {
+      // Abort any ongoing fetches for both layers
+      const allBuildingsAbort = allBuildingsSource.get("abortController");
+      if (allBuildingsAbort) allBuildingsAbort.abort();
+      const highBuildingsAbort = highBuildingsSource.get("abortController");
+      if (highBuildingsAbort) highBuildingsAbort.abort();
       map.removeLayer(allBuildingsLayer);
       map.removeLayer(highBuildingsLayer);
     };

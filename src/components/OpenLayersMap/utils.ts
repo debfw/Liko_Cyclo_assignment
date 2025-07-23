@@ -67,12 +67,16 @@ export function createWfsLoader(options: {
   cqlFilter?: string;
 }): LoaderFunction {
   return function (extent, resolution, projection, success, failure) {
+    const prevController = options.source.get("abortController");
+    if (prevController) prevController.abort();
+
     options.setIsLoading(true);
     const featureCount = 1000; // Always use a fixed feature count
     const url = buildWfsUrl(extent, featureCount, options.cqlFilter);
 
     // Add abort controller for cancellable requests
     const controller = new AbortController();
+    options.source.set("abortController", controller);
 
     fetch(url, { signal: controller.signal })
       .then((response) => {
@@ -104,8 +108,5 @@ export function createWfsLoader(options: {
         options.setIsLoading(false);
         failure?.();
       });
-
-    // Store abort controller for cleanup
-    options.source.set("abortController", controller);
   };
 }
