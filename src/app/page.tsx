@@ -1,15 +1,6 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
-const OpenLayersMap = dynamic(() => import("@/components/OpenLayersMap"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-screen flex items-center justify-center">
-      Loading map...
-    </div>
-  ),
-});
+import OpenLayersMap from "@/components/OpenLayersMap";
 
 export default function Home() {
   return (
