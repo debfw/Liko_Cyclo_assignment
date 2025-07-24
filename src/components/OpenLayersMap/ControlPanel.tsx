@@ -7,6 +7,8 @@ import {
   Slider,
   Group,
   Text,
+  Loader,
+  Alert,
 } from "@mantine/core";
 import { CONTROL_PANEL_WIDTH } from "./constants";
 
@@ -51,6 +53,20 @@ export const ControlPanel = ({
           Layer Controls
         </Title>
 
+        {isLoading && showBuildings && (
+          <Alert
+            variant="light"
+            color="blue"
+            title="Loading Building Data"
+            icon={<Loader size="sm" />}
+            style={{ background: "#1E3A8A", border: "1px solid #3B82F6" }}
+          >
+            <Text size="sm" c="blue.2">
+              Fetching building data from PDOK WFS service...
+            </Text>
+          </Alert>
+        )}
+
         <Paper radius="md" p="md" style={{ background: "#23272A" }}>
           <Stack gap="xs">
             <Title order={3} size="h5" style={{ color: "#fff" }}>
@@ -84,12 +100,6 @@ export const ControlPanel = ({
               size="md"
               disabled={!showBuildings}
             />
-
-            {isLoading && showBuildings && (
-              <Text size="xs" c="dimmed" style={{ marginTop: -8 }}>
-                Loading building data...
-              </Text>
-            )}
 
             <Group justify="space-between" mt="md" mb={-8}>
               <Text size="sm" c="#fff">
