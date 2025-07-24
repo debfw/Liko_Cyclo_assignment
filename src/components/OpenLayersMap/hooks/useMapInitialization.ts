@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
 import OSM from "ol/source/OSM";
-import VectorLayer from "ol/layer/Vector";
 import { defaults as defaultControls } from "ol/control";
 import MousePosition from "ol/control/MousePosition";
 import { createStringXY } from "ol/coordinate";
@@ -27,13 +26,6 @@ export function useMapInitialization(
   mapContainerRef: React.RefObject<HTMLDivElement | null>
 ) {
   const [map, setMap] = useState<Map | null>(null);
-  const layerRefs = useRef<{
-    allBuildings: VectorLayer | null;
-    highBuildings: VectorLayer | null;
-  }>({
-    allBuildings: null,
-    highBuildings: null,
-  });
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -45,7 +37,7 @@ export function useMapInitialization(
     const mousePositionControl = new MousePosition({
       coordinateFormat: createStringXY(2),
       projection: RD_PROJECTION,
-      className: "custom-mouse-position",
+      className: "mousePosition",
       target: undefined,
       placeholder: "No coordinates",
     });
@@ -70,5 +62,5 @@ export function useMapInitialization(
     };
   }, [mapContainerRef]);
 
-  return { map, layerRefs };
+  return { map };
 }

@@ -11,28 +11,20 @@ import {
   Alert,
 } from "@mantine/core";
 import { CONTROL_PANEL_WIDTH } from "./constants";
+import { useMapContext } from "./context/MapContext";
 
-interface ControlPanelProps {
-  showBuildings: boolean;
-  setShowBuildings: (value: boolean) => void;
-  showHighBuildings: boolean;
-  setShowHighBuildings: (value: boolean) => void;
-  opacity: number;
-  setOpacity: (value: number) => void;
-  isLoading: boolean;
-  featureCount: number;
-}
+export const ControlPanel = () => {
+  const {
+    showBuildings,
+    setShowBuildings,
+    showHighBuildings,
+    setShowHighBuildings,
+    opacity,
+    setOpacity,
+    isLoading,
+    featureCount,
+  } = useMapContext();
 
-export const ControlPanel = ({
-  showBuildings,
-  setShowBuildings,
-  showHighBuildings,
-  setShowHighBuildings,
-  opacity,
-  setOpacity,
-  isLoading,
-  featureCount,
-}: ControlPanelProps) => {
   return (
     <Paper
       shadow="xl"
@@ -130,14 +122,6 @@ export const ControlPanel = ({
             />
           </Stack>
         </Paper>
-
-        <Text size="xs" c="dimmed">
-          Blue borders: All buildings
-          <br />
-          Red borders: Buildings with &gt;10 floors
-          <br />
-          Data source: PDOK BAG WFS service
-        </Text>
       </Stack>
     </Paper>
   );
